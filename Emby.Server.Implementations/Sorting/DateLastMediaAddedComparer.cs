@@ -63,6 +63,13 @@ namespace Emby.Server.Implementations.Sorting
                 }
             }
 
+            // For non-folder items, use the creation date or another appropriate date property.
+            if (x is MediaItem mediaItem && mediaItem.DateCreated.HasValue)
+            {
+                return mediaItem.DateCreated.Value;
+            }
+
+            // Return DateTime.MinValue only if no date information is available.
             return DateTime.MinValue;
         }
     }
